@@ -3,7 +3,7 @@ class Section
 {
 
     private int $idSection;
-    private string $nomSection;
+    private string $libelleSection;
 
     public function __construct(int $id, string $name)
     {
@@ -13,15 +13,15 @@ class Section
             throw new Exception("l'ID ne peut pas être vide");
         }
         if (isset($name) && !empty($name)) {
-            $this->nomSection = $name;
+            $this->libelleSection = $name;
         } else {
             throw new Exception("le nom ne peut pas être vide");
         }
     }
 
-    public function GetNom(): string
+    public function GetLibelle(): string
     {
-        return $this->nomSection;
+        return $this->libelleSection;
     }
 
     public function GetId(): int

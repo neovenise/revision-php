@@ -1,5 +1,4 @@
 <?php
-require('EtudiantManager.php');
 require('Section.php');
 
 class Etudiant
@@ -8,14 +7,16 @@ class Etudiant
     private int $idEtudiant;
     private string $nom, $prenom, $email, $telmobile;
     private DateTime $datenaissance;
-    private Section $laSection;
+    private Section $section;
 
     public function __construct(
         int $id,
-        string $surname = 'à définir',
-        string $name = 'à définir',
-        string $mail = 'à définir',
-        string $phone = 'à définir'
+        string $surname,
+        string $name,
+        string $mail,
+        string $phone,
+        DateTime $date,
+        Section $laSection
     ) {
         if (!isset($id)) {
             throw new Exception("l'ID de l'étudiant n'a pas été donné.");
@@ -25,6 +26,8 @@ class Etudiant
         $this->prenom = $name;
         $this->email = $mail;
         $this->telmobile = $phone;
+        $this->datenaissance = $date;
+        $this->section = $laSection;
     }
 
     public function GetNom(): string
