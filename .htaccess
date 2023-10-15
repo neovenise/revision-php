@@ -1,0 +1,4 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^/delete/([0-9]+)/$   index.php?action=delete&id=$1 [nc,qsa]

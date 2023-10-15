@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <?php
 require_once('.\models\EtudiantManager.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8" />
@@ -59,7 +59,7 @@ require_once('.\models\EtudiantManager.php');
                 $etudiantHtml.= '<td>' .$unEtudiant->GetPrenom().'</td>';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetDateNaissance()->format('d/m/Y').'</td>';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetMail().'</td>';
-                $etudiantHtml.= '<td class="d-flex gap-2 justify-content-center"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</button><button class="btn btn-danger"><i class="bi bi-trash-fill"></i> Supprimer</button></td>';
+                $etudiantHtml.= '<td class="d-flex gap-2 justify-content-center"><button class="btn btn-warning edit"><i class="bi bi-pencil-square"></i> Modifier</button><button class="btn btn-danger delete"><i class="bi bi-trash-fill"></i> Supprimer</button></td>';
                 $etudiantHtml.= '</tr>';
             }
             echo $etudiantHtml;
