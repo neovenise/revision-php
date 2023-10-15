@@ -39,7 +39,7 @@ class EtudiantManager
         $result = self::$cnx->prepare($req);
         //Récupération du libelle pour éviter une erreur PHP1801.
         $idSection = $uneSection->GetId();
-        $result->bindParam('Section',$idSection,PDO::PARAM_INT);
+        $result->bindParam('Section', $idSection, PDO::PARAM_INT);
         $result->execute();
         while ($unEtudiant = $result->fetch()) {
             $lesEtudiants[] = new Etudiant(
@@ -51,9 +51,26 @@ class EtudiantManager
                 new DateTime(
                     $unEtudiant['datenaissance'],
                 ),
-                $uneSection);
+                $uneSection
+            );
         }
         return $lesEtudiants;
+    }
+
+    public static function SupprimerUnEtudiant(Etudiant $unEtudiant)
+    {
+        if (self::$cnx == null) {
+            self::$cnx = DbManager::connect();
+        }
+        $req = 'delete from etudiant where idEtudiant = :id';
+        $result = self::$cnx->prepare($req);
+        $idEtudiant = $unEtudiant->GetID();
+        $result->bindParam(':id', $idEtudiant, PDO::PARAM_INT);
+        $nbLignes = $result->execute();
+        if ($nbLignes != 1) {
+            throw new Exception("Erreur : Le nombre de ligne affectés lors de la suppression n'est pas celui attendu : " + $nbLignes);
+        }
+
     }
 
 }

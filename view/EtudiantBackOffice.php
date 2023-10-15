@@ -9,6 +9,7 @@ require_once('.\models\EtudiantManager.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Back-Office</title>
 </head>
 
@@ -46,27 +47,30 @@ require_once('.\models\EtudiantManager.php');
                     <th>Prénom</th>
                     <th>Date de naissance</th>
                     <th>Email</th>
+                    <th>Action</th>
                 </thead>
             <tbody>
             <?php
             $etudiantHtml = '';
             
             foreach($etudiants as $unEtudiant){
-                $etudiantHtml.= '<tr>';
+                $etudiantHtml.= '<tr data-student-id="'.$unEtudiant->GetID().'">';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetNom().'</td>';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetPrenom().'</td>';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetDateNaissance()->format('d/m/Y').'</td>';
                 $etudiantHtml.= '<td>' .$unEtudiant->GetMail().'</td>';
+                $etudiantHtml.= '<td class="d-flex gap-2 justify-content-center"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</button><button class="btn btn-danger"><i class="bi bi-trash-fill"></i> Supprimer</button></td>';
                 $etudiantHtml.= '</tr>';
             }
             echo $etudiantHtml;
             ?>
             </tbody>
         </table>
+        <button class="btn btn-primary"><i class="bi bi-plus"></i> Ajouter</button>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
-
+<script src="<?php echo './models/confirmDelete.js' ?>"></script>
 </html>

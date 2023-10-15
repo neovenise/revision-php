@@ -22,7 +22,7 @@ if (file_exists($filename)) {
         try {
             $controller::$action($params);
         } catch (Exception $ex) {
-            echo 'Erreur : ', $ex->getMessage(), '\n';
+            echo 'Erreur : '. $ex->getMessage();
         }
     } else {
         print_r('mmm erreur 404 un truc dans le genre (l\'action n\'existe pas)');
