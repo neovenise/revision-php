@@ -3,20 +3,20 @@ define('ROOT', __DIR__);
 define('DEFAULT_CONTROLLER', 'Etudiant');
 define('DEFAULT_ACTION', 'ListeEtudiants');
 
+var_dump($_SERVER['SCRIPT_FILENAME']);
 
 // TODO : Fix main router & Fix section filters route
 $params = array();
-if(isset($_GET) && !empty($_GET)){
+if (isset($_GET) && !empty($_GET)) {
     extract($_GET);
     foreach ($_GET as $key => $value) {
         if (($key != 'controller') && ($key != 'action')) {
             $params[$key] = $value;
         }
     }
-}
-else{
-$controller = DEFAULT_CONTROLLER;
-$action = DEFAULT_ACTION;
+} else {
+    $controller = DEFAULT_CONTROLLER;
+    $action = DEFAULT_ACTION;
 }
 
 
@@ -31,7 +31,7 @@ if (file_exists($filename)) {
         try {
             $controller::$action($params);
         } catch (Exception $ex) {
-            echo 'Erreur : '. $ex->getMessage();
+            echo 'Erreur : ' . $ex->getMessage();
         }
     } else {
         print_r('mmm erreur 404 un truc dans le genre (l\'action n\'existe pas)');

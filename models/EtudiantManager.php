@@ -57,14 +57,13 @@ class EtudiantManager
         return $lesEtudiants;
     }
 
-    public static function SupprimerUnEtudiant(Etudiant $unEtudiant)
+    public static function SupprimerUnEtudiant(int $idEtudiant)
     {
         if (self::$cnx == null) {
             self::$cnx = DbManager::connect();
         }
         $req = 'delete from etudiant where idEtudiant = :id';
         $result = self::$cnx->prepare($req);
-        $idEtudiant = $unEtudiant->GetID();
         $result->bindParam(':id', $idEtudiant, PDO::PARAM_INT);
         $nbLignes = $result->execute();
         if ($nbLignes != 1) {

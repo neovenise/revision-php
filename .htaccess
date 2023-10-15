@@ -1,4 +1,9 @@
 Options +FollowSymlinks
 RewriteEngine on
 
-RewriteRule ^/student/delete/([0-9]+)/$ index.php?controller=Etudiant&action=delete&id=$1 [nc,qsa]
+#réécriture du lien si un filtre est appliqué, pour éviter du traitement non nécessaire à PHP.
+RewriteCond %{QUERY_STRING} ^section=([0-9]+)$ [OR]
+RewriteCond %{QUERY_STRING} ^section=all$
+RewriteRule ^$ index.php?controller=Etudiant&action=ListeEtudiants&section=$1 [nc,qsa]
+
+RewriteRule ^supprimer/([0-9]+)$ index.php?controller=Etudiant&action=delete&id=$1 [nc,qsa]
