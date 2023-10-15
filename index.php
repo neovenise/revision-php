@@ -3,15 +3,24 @@ define('ROOT', __DIR__);
 define('DEFAULT_CONTROLLER', 'Etudiant');
 define('DEFAULT_ACTION', 'ListeEtudiants');
 
-$controller = DEFAULT_CONTROLLER;
-$action = DEFAULT_ACTION;
 
+// TODO : Fix main router & Fix section filters route
 $params = array();
-foreach ($_GET as $key => $value) {
-    if (($key != 'controller') && ($key != 'action')) {
-        $params[$key] = $value;
+if(isset($_GET) && !empty($_GET)){
+    extract($_GET);
+    foreach ($_GET as $key => $value) {
+        if (($key != 'controller') && ($key != 'action')) {
+            $params[$key] = $value;
+        }
     }
 }
+else{
+$controller = DEFAULT_CONTROLLER;
+$action = DEFAULT_ACTION;
+}
+
+
+
 
 $controller .= "Controller";
 

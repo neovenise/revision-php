@@ -36,5 +36,16 @@ class EtudiantController extends Controller
         self::render($view, $params);
     }
 
-    public static function SupprimerEtudiant()
+    // TODO : Test method "delete()"
+    public static function delete($params){
+        try{
+            EtudiantManager::SupprimerUnEtudiant($params["id"]);
+        }
+        catch (Exception $ex) {
+            echo "Erreur : " + $ex->getMessage();
+        }
+        finally {
+            EtudiantController::ListeEtudiants($params);
+        }
+    }
 }

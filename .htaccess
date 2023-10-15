@@ -1,0 +1,4 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^/student/delete/([0-9]+)/$ index.php?controller=Etudiant&action=delete&id=$1 [nc,qsa]
