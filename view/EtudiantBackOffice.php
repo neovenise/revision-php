@@ -7,16 +7,72 @@ require_once('.\models\EtudiantManager.php');
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Back-Office</title>
 </head>
 
 <body>
-    <?php
 
-    ?>
+    <div class="modal fade" id="modalEtudiant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Fiche étudiant</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <label for="nom" class="col-sm-4 col-form-label">Nom</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom étudiant" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom étudiant" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="nom" class="col-sm-4 col-form-label">Date de naissance</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="datenaissance" id="datenaissance" class="form-control" placeholder="JJ/MM/AAAA" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="email" class="col-sm-4 col-form-label">Email</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="mail" id="mail" class="form-control" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="tel" class="col-sm-4 col-form-label">Tél. mobile</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="tel" id="tel" class="form-control" placeholder="+33" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="section" class="col-sm-4 col-form-label">Section</label>
+                            <div class="col-sm-6">
+                                <select class="form-select">
+                                    <option selected>Template</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container py-5">
         <h1>Liste des étudiants</h1>
 
@@ -66,12 +122,13 @@ require_once('.\models\EtudiantManager.php');
                 ?>
             </tbody>
         </table>
-        <button class="btn btn-primary"><i class="bi bi-plus"></i> Ajouter</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalEtudiant">
+            <i class="bi bi-plus"></i> Ajouter
+        </button>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-    crossorigin="anonymous"></script>
-<script src="<?php echo './models/confirmDelete.js' ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="<?php echo '/revision-php/assets/js/confirmDelete.js' ?>"></script>
+<script src="<?php echo '/revision-php/assets/js/ajouterEtudiant.js' ?>"></script>
 
 </html>

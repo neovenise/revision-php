@@ -3,8 +3,6 @@ define('ROOT', __DIR__);
 define('DEFAULT_CONTROLLER', 'Etudiant');
 define('DEFAULT_ACTION', 'ListeEtudiants');
 
-var_dump($_SERVER['SCRIPT_FILENAME']);
-
 // TODO : Fix main router & Fix section filters route
 $params = array();
 if (isset($_GET) && !empty($_GET)) {
