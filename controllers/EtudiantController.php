@@ -47,7 +47,26 @@ class EtudiantController extends Controller
         } catch (Exception $ex) {
             echo "Erreur : " + $ex->getMessage();
         } finally {
-            EtudiantController::ListeEtudiants($params);
+            header('Location: /revision-php/');
+            exit();
+        }
+    }
+
+    public static function add($params)
+    {
+        try {
+            EtudiantManager::AjouterUnEtudiant(
+                htmlspecialchars($params['nom']),
+                htmlspecialchars($params['prenom']),
+                Datetime::createFromFormat("d/m/Y", $params['datenaissance']),
+                filter_var($params['mail'], FILTER_SANITIZE_EMAIL),
+                htmlspecialchars($params['tel']),
+                intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT))
+            );
+            header('Location: /revision-php/');
+        } catch (Exception $ex) {
+            echo "Erreur lors de l'ajout de l'étudiant : " + $ex->getMessage();
+        } finally {
         }
     }
 }

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <?php
 require_once('.\models\EtudiantManager.php');
+$sectionHtml = "";
+foreach ($listeSections as $uneSection) {
+    $sectionHtml .= "<option value=" . $uneSection->GetID();
+    if ($idSectionFiltre == $uneSection->GetID()) {
+        $sectionHtml .= ' selected';
+    }
+    $sectionHtml .= ">" . $uneSection->GetLibelle() . "</option>";
+}
 ?>
 <html lang="fr">
 
@@ -21,8 +29,9 @@ require_once('.\models\EtudiantManager.php');
                     <h1 class="modal-title fs-5">Fiche étudiant</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form method="POST" action="ajouter/">
+                    <div class="modal-body">
+
                         <div class="row mb-3">
                             <label for="nom" class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
@@ -36,13 +45,13 @@ require_once('.\models\EtudiantManager.php');
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="nom" class="col-sm-4 col-form-label">Date de naissance</label>
+                            <label for="datenaissance" class="col-sm-4 col-form-label">Date de naissance</label>
                             <div class="col-sm-8">
                                 <input type="text" name="datenaissance" id="datenaissance" class="form-control" placeholder="JJ/MM/AAAA" />
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="email" class="col-sm-4 col-form-label">Email</label>
+                            <label for="mail" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-6">
                                 <input type="text" name="mail" id="mail" class="form-control" placeholder="Email" />
                             </div>
@@ -56,18 +65,16 @@ require_once('.\models\EtudiantManager.php');
                         <div class="row mb-3">
                             <label for="section" class="col-sm-4 col-form-label">Section</label>
                             <div class="col-sm-6">
-                                <select class="form-select">
-                                    <option selected>Template</option>
+                                <select class="form-select" name="idSection">
+                                    <?php echo $sectionHtml; ?>
                                 </select>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">
-                        Envoyer
-                    </button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Envoyer" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -77,19 +84,10 @@ require_once('.\models\EtudiantManager.php');
         <h1>Liste des étudiants</h1>
 
         <p class="my-0">Filtre :</p>
-        <form method="get" action="" class="mb-4 d-flex gap-2">
-
+        <form method="get" class="mb-4 d-flex gap-2">
             <select class="form-select w-50" name="section">
                 <option value="all">Tous</option>
                 <?php
-                $sectionHtml = "";
-                foreach ($listeSections as $uneSection) {
-                    $sectionHtml .= "<option value=" . $uneSection->GetID();
-                    if ($idSectionFiltre == $uneSection->GetID()) {
-                        $sectionHtml .= ' selected';
-                    }
-                    $sectionHtml .= ">" . $uneSection->GetLibelle() . "</option>";
-                }
                 echo $sectionHtml;
                 ?>
 

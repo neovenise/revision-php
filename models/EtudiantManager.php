@@ -69,7 +69,22 @@ class EtudiantManager
         if ($nbLignes != 1) {
             throw new Exception("Erreur : Le nombre de ligne affectés lors de la suppression n'est pas celui attendu : " + $nbLignes);
         }
-
     }
 
+    public static function AjouterUnEtudiant(string $nom, string $prenom, DateTime $date, string $mail, string $tel, int $idSection)
+    {
+        if (self::$cnx == null) {
+            self::$cnx = DbManager::connect();
+        }
+        $req = 'insert into etudiant(nom,prenom,datenaissance,email,telmobile,idsection)' .
+            'values (:nom,:prenom,:date,:mail,:tel,:idsection)';
+        $result = self::$cnx->prepare($req);
+        $result->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $result->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $result->bindParam(':date', $date->format('Y-m-d'), PDO::PARAM_STR);
+        $result->bindParam(':mail', $mail, PDO::PARAM_STR);
+        $result->bindParam(':tel', $tel, PDO::PARAM_STR);
+        $result->bindParam(':idsection', $idSection, PDO::PARAM_INT);
+        $result->execute();
+    }
 }

@@ -7,3 +7,5 @@ RewriteCond %{QUERY_STRING} ^section=all$
 RewriteRule ^$ index.php?controller=Etudiant&action=ListeEtudiants&section=$1 [nc,qsa]
 
 RewriteRule ^supprimer/([0-9]+)$ index.php?controller=Etudiant&action=delete&id=$1 [nc,qsa]
+
+RewriteRule ^ajouter/$ index.php?controller=Etudiant&action=add [nc]
