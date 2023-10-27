@@ -35,37 +35,37 @@ foreach ($listeSections as $uneSection) {
                         <div class="row mb-3">
                             <label for="nom" class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom étudiant" />
+                                <input type="text" name="nom" id="modal-nom" class="form-control" placeholder="Nom étudiant" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
                             <div class="col-sm-8">
-                                <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom étudiant" />
+                                <input type="text" name="prenom" id="modal-prenom" class="form-control" placeholder="Prénom étudiant" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="datenaissance" class="col-sm-4 col-form-label">Date de naissance</label>
                             <div class="col-sm-8">
-                                <input type="text" name="datenaissance" id="datenaissance" class="form-control" placeholder="JJ/MM/AAAA" />
+                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="mail" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-6">
-                                <input type="text" name="mail" id="mail" class="form-control" placeholder="Email" />
+                                <input type="text" name="mail" id="modal-mail" class="form-control" placeholder="Email" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="tel" class="col-sm-4 col-form-label">Tél. mobile</label>
                             <div class="col-sm-6">
-                                <input type="text" name="tel" id="tel" class="form-control" placeholder="+33" />
+                                <input type="text" name="tel" id="modal-tel" class="form-control" placeholder="+33" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="section" class="col-sm-4 col-form-label">Section</label>
                             <div class="col-sm-6">
-                                <select class="form-select" name="idSection">
+                                <select class="form-select" name="idSection" id="modal-section">
                                     <?php echo $sectionHtml; ?>
                                 </select>
                             </div>
@@ -113,7 +113,7 @@ foreach ($listeSections as $uneSection) {
                     $etudiantHtml .= '<td>' . $unEtudiant->GetPrenom() . '</td>';
                     $etudiantHtml .= '<td>' . $unEtudiant->GetDateNaissance()->format('d/m/Y') . '</td>';
                     $etudiantHtml .= '<td>' . $unEtudiant->GetMail() . '</td>';
-                    $etudiantHtml .= '<td class="d-flex gap-2 justify-content-center"><button class="btn btn-warning edit"><i class="bi bi-pencil-square"></i> Modifier</button><button class="btn btn-danger delete"><i class="bi bi-trash-fill"></i> Supprimer</button></td>';
+                    $etudiantHtml .= '<td class="d-flex gap-2 justify-content-center"><button class="btn btn-warning edit" data-bs-toggle="modal" data-bs-target="#modalEtudiant"><i class="bi bi-pencil-square"></i> Modifier</button><button class="btn btn-danger delete"><i class="bi bi-trash-fill"></i> Supprimer</button></td>';
                     $etudiantHtml .= '</tr>';
                 }
                 echo $etudiantHtml;
@@ -127,6 +127,6 @@ foreach ($listeSections as $uneSection) {
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="<?php echo '/revision-php/assets/js/confirmDelete.js' ?>"></script>
-<script src="<?php echo '/revision-php/assets/js/ajouterEtudiant.js' ?>"></script>
+<script src="<?php echo '/revision-php/assets/js/AddEditModal.js' ?>"></script>
 
 </html>

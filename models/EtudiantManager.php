@@ -32,10 +32,9 @@ class EtudiantManager
     {
         self::$cnx = DbManager::connect();
         $lesEtudiants = array();
-        $req = 'select idEtudiant, nom, prenom , datenaissance, email, telmobile, Etudiant.idSection ';
+        $req = 'select idEtudiant, nom, prenom , datenaissance, email, telmobile, idSection ';
         $req .= 'from etudiant ';
-        $req .= 'join Section ON Etudiant.idSection = Section.idSection ';
-        $req .= 'WHERE Etudiant.idSection = :Section';
+        $req .= 'WHERE idSection = :Section';
         $result = self::$cnx->prepare($req);
         //Récupération du libelle pour éviter une erreur PHP1801.
         $idSection = $uneSection->GetId();
@@ -87,4 +86,23 @@ class EtudiantManager
         $result->bindParam(':idsection', $idSection, PDO::PARAM_INT);
         $result->execute();
     }
+
+    public static function getInfoEtudiant(int $idEtudiant) : array {
+        if (self::$cnx == null) {
+            self::$cnx = DbManager::connect();
+        }
+        $req = 'select idEtudiant, nom, prenom , DATE_FORMAT(datenaissance, "%d/%m/%Y") AS datenaissance, email, telmobile, idSection ';
+        $req .= 'from etudiant ';
+        $req .= 'WHERE idEtudiant = :id';
+        $result = self::$cnx->prepare($req);
+        $result->bindParam(':id', $idEtudiant, PDO::PARAM_INT);
+        $result->execute();
+        $etudiantInfo = $result->fetch(PDO::FETCH_ASSOC);
+        if(!$etudiantInfo){
+            throw new UnexpectedValueException("L'étudiant n° {$idEtudiant} n'existe pas.");
+        }
+        return $etudiantInfo;
+    }
+
+    //TODO : Database edit student's info
 }

@@ -66,7 +66,18 @@ class EtudiantController extends Controller
             header('Location: /revision-php/');
         } catch (Exception $ex) {
             echo "Erreur lors de l'ajout de l'étudiant : " + $ex->getMessage();
-        } finally {
+        }
+
+    }
+
+    public static function getInfoEtudiant($params){
+        try{
+            $infoEtudiant = EtudiantManager::getInfoEtudiant($params['idEtudiant']);
+            print(json_encode($infoEtudiant));
+        }catch (Exception $ex) {
+            echo "Erreur lors de l'obtention de l'étudiant : {$ex->getMessage()}";
         }
     }
+
+    //TODO : Edit Student Info
 }
