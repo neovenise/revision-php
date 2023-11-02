@@ -1,10 +1,12 @@
 const modal = document.getElementById("modalEtudiant");
-const addButton = document.getElementsByClassName("edit");
+const validButton = document.getElementById("form-action");
+const formInputs = document.getElementsByClassName("form-control");
+console.log(formInputs[0]);
 
 modal.addEventListener('show.bs.modal',async (event) =>{
     let caller = event.relatedTarget;
     if (caller.parentNode.parentNode.getAttribute("data-student-id")){
-    document.getElementById("form-action").value = "Modifier";
+    validButton.value = "Modifier";
     let row = caller.parentNode.parentNode;
     let studentId = row.getAttribute("data-student-id");
     document.getElementById('modal-form').setAttribute('action',"modifier/"+studentId+"/");
@@ -23,12 +25,20 @@ modal.addEventListener('show.bs.modal',async (event) =>{
     }
     }
     else{
-        document.getElementById("form-action").value = "Ajouter";
+        validButton.value = "Ajouter";
         document.getElementById('modal-form').setAttribute('action',"ajouter/");
-        let formInputs = document.getElementsByClassName("form-control");
         for (var i = 0; i < formInputs.length ; i++){
             formInputs[i].value = '';
         }
     }
-
 })
+
+const formElement = document.getElementById("modal-form"); 
+formElement.addEventListener('submit', event => {
+        console.log("test");
+        if (!formElement.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            formElement.classList.add('was-validated');
+        }
+    })

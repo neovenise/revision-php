@@ -29,37 +29,36 @@ foreach ($listeSections as $uneSection) {
                     <h1 class="modal-title fs-5">Fiche étudiant</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" id="modal-form">
+                <form method="POST" id="modal-form" novalidate>
                     <div class="modal-body">
-
                         <div class="row mb-3">
                             <label for="nom" class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nom" id="modal-nom" class="form-control" placeholder="Nom étudiant" />
+                                <input type="text" name="nom" id="modal-nom" class="form-control" placeholder="Nom étudiant" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
                             <div class="col-sm-8">
-                                <input type="text" name="prenom" id="modal-prenom" class="form-control" placeholder="Prénom étudiant" />
+                                <input type="text" name="prenom" id="modal-prenom" class="form-control" placeholder="Prénom étudiant" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="datenaissance" class="col-sm-4 col-form-label">Date de naissance</label>
                             <div class="col-sm-8">
-                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" />
+                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="mail" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-6">
-                                <input type="text" name="mail" id="modal-mail" class="form-control" placeholder="Email" />
+                                <input type="text" name="mail" id="modal-mail" class="form-control" placeholder="Email" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="tel" class="col-sm-4 col-form-label">Tél. mobile</label>
                             <div class="col-sm-6">
-                                <input type="text" name="tel" id="modal-tel" class="form-control" placeholder="+33" />
+                                <input type="text" name="tel" id="modal-tel" class="form-control" placeholder="+33" required/>
                             </div>
                         </div>
                         <div class="row mb-3">

@@ -36,7 +36,6 @@ class EtudiantManager
         $req .= 'from etudiant ';
         $req .= 'WHERE idSection = :Section';
         $result = self::$cnx->prepare($req);
-        //Récupération du libelle pour éviter une erreur PHP1801.
         $idSection = $uneSection->GetId();
         $result->bindParam('Section', $idSection, PDO::PARAM_INT);
         $result->execute();
