@@ -19,7 +19,7 @@ class Etudiant
      * @param string $phone numéro de téléphone de l'étudiant
      * @param DateTime $date Date de naissance de l'étudiant
      * @param Section $laSection Section de l'étudiant
-     * @exception Exception Est retourné si l'id de l'étudiant n'est pas donné. (?)
+     * @throws Exception Est retourné si l'id de l'étudiant n'est pas donné. (?)
      */
     public function __construct(
         int $id,

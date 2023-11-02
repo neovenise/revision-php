@@ -2,9 +2,19 @@
 require_once('DbManager.php');
 require_once('Etudiant.php');
 
+/**
+ * Classe EtudiantManager
+ * Gère les opérations liées aux étudiants dans la base de données.
+ */
 class EtudiantManager
 {
     private static ?\PDO $cnx = null;
+    
+    /**
+     * Récupère la liste des étudiants depuis la base de données.
+     *
+     * @return array Un tableau d'objets Etudiant représentant les étudiants.
+     */
     public static function GetLesEtudiants(): array
     {
         self::$cnx = DbManager::connect();
@@ -28,6 +38,12 @@ class EtudiantManager
         return $lesEtudiants;
     }
 
+     /**
+     * Récupère la liste des étudiants d'une section spécifique depuis la base de données.
+     *
+     * @param Section $uneSection L'objet Section pour filtrer les étudiants.
+     * @return array Un tableau d'objets Etudiant représentant les étudiants de la section.
+     */
     public static function GetLesEtudiantsParSection(Section $uneSection): array
     {
         self::$cnx = DbManager::connect();
@@ -55,6 +71,12 @@ class EtudiantManager
         return $lesEtudiants;
     }
 
+    /**
+     * Supprime un étudiant de la base de données en fonction de son ID.
+     *
+     * @param int $idEtudiant L'ID de l'étudiant à supprimer.
+     * @throws Exception Si une erreur se produit lors de la suppression.
+     */
     public static function SupprimerUnEtudiant(int $idEtudiant)
     {
         if (self::$cnx == null) {
@@ -69,6 +91,17 @@ class EtudiantManager
         }
     }
 
+    /**
+     * Ajoute un nouvel étudiant dans la base de données.
+     *
+     * @param string $nom Le nom de l'étudiant.
+     * @param string $prenom Le prénom de l'étudiant.
+     * @param DateTime $date La date de naissance de l'étudiant.
+     * @param string $mail L'adresse e-mail de l'étudiant.
+     * @param string $tel Le numéro de téléphone mobile de l'étudiant.
+     * @param int $idSection L'ID de la section à laquelle l'étudiant est associé.
+     * @throws Exception Si une erreur se produit lors de l'ajout.
+     */
     public static function AjouterUnEtudiant(string $nom, string $prenom, DateTime $date, string $mail, string $tel, int $idSection)
     {
         if (self::$cnx == null) {
@@ -89,6 +122,13 @@ class EtudiantManager
         }
     }
 
+    /**
+     * Récupère les informations d'un étudiant en fonction de son ID.
+     *
+     * @param int $idEtudiant L'ID de l'étudiant dont les informations sont demandées.
+     * @return array Un tableau d'informations sur l'étudiant.
+     * @throws UnexpectedValueException Si l'étudiant avec l'ID donné n'existe pas.
+     */
     public static function getInfoEtudiant(int $idEtudiant) : array {
         if (self::$cnx == null) {
             self::$cnx = DbManager::connect();
@@ -106,6 +146,18 @@ class EtudiantManager
         return $etudiantInfo;
     }
 
+    /**
+     * Modifie les informations d'un étudiant en fonction de son ID.
+     *
+     * @param int $idEtudiant L'ID de l'étudiant à modifier.
+     * @param string $nom Le nouveau nom de l'étudiant.
+     * @param string $prenom Le nouveau prénom de l'étudiant.
+     * @param DateTime $date La nouvelle date de naissance de l'étudiant.
+     * @param string $mail La nouvelle adresse e-mail de l'étudiant.
+     * @param string $tel Le nouveau numéro de téléphone mobile de l'étudiant.
+     * @param int $idSection Le nouvel ID de la section à laquelle l'étudiant est associé.
+     * @throws Exception Si une erreur se produit lors de la modification.
+     */
     public static function editEtudiant(int $idEtudiant, string $nom, string $prenom, DateTime $date, string $mail, string $tel, int $idSection){
         if (self::$cnx == null) {
             self::$cnx = DbManager::connect();
