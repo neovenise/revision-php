@@ -1,10 +1,12 @@
 const modal = document.getElementById("modalEtudiant");
 const validButton = document.getElementById("form-action");
 const formInputs = document.getElementsByClassName("form-control");
+const formElement = document.getElementById("modal-form"); 
 console.log(formInputs[0]);
 
 modal.addEventListener('show.bs.modal',async (event) =>{
     let caller = event.relatedTarget;
+    formElement.classList.remove("was-validated");
     if (caller.parentNode.parentNode.getAttribute("data-student-id")){
     validButton.value = "Modifier";
     let row = caller.parentNode.parentNode;
@@ -32,8 +34,6 @@ modal.addEventListener('show.bs.modal',async (event) =>{
         }
     }
 })
-
-const formElement = document.getElementById("modal-form"); 
 formElement.addEventListener('submit', event => {
         console.log("test");
         if (!formElement.checkValidity()) {

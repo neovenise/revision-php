@@ -35,30 +35,45 @@ foreach ($listeSections as $uneSection) {
                             <label for="nom" class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
                                 <input type="text" name="nom" id="modal-nom" class="form-control" placeholder="Nom étudiant" required/>
+                                <div class="invalid-feedback">
+                                Veuillez saisir un nom.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
                             <div class="col-sm-8">
                                 <input type="text" name="prenom" id="modal-prenom" class="form-control" placeholder="Prénom étudiant" required/>
+                                <div class="invalid-feedback">
+                                Veuillez saisir un prénom.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="datenaissance" class="col-sm-4 col-form-label">Date de naissance</label>
                             <div class="col-sm-8">
-                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" required/>
+                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" pattern="\d{2}/\d{2}/\d{4}" required/> <!-- Il y a d'autres manières de vérifier que par des expressions régulières, mais restons dans la simplicité. -->
+                                <div class="invalid-feedback">
+                                Veuillez saisir une date de naissance valide. (JJ/MM/AAAA)
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="mail" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-6">
-                                <input type="text" name="mail" id="modal-mail" class="form-control" placeholder="Email" required/>
+                                <input type="mail" name="mail" id="modal-mail" class="form-control" placeholder="Email" required/>
+                                <div class="invalid-feedback">
+                                Veuillez saisir un email valide.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="tel" class="col-sm-4 col-form-label">Tél. mobile</label>
                             <div class="col-sm-6">
-                                <input type="text" name="tel" id="modal-tel" class="form-control" placeholder="+33" required/>
+                                <input type="text" name="tel" id="modal-tel" class="form-control" placeholder="+330699517103" pattern="^\+33\d{10}$" required/>
+                                <div class="invalid-feedback">
+                                Veuillez saisir un numéro de téléphone, il doit commencer par "+33".
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">

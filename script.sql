@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS ETUDIANT (
 ALTER TABLE ETUDIANT ADD CONSTRAINT `fk_etudiant_idsection` FOREIGN KEY (`idSection`) REFERENCES section(`idSection`);
 
 INSERT INTO `ETUDIANT`(`nom`,`prenom`,`datenaissance`,`email`,`telmobile`,`idSection`) VALUES
-('rodriguez','damien','2002-01-03','damien@damienrodriguez.fr','+33699887766',1),
-('Morabet','Moumen','2003-01-01','moumen@jsp.fr','+33 33 33 33 33',1),
-('Youssef','En nour','2099-99-99','yous@sef.en','+33 4 54 32 65 05',2),
-('Julio','Morgan','2010-01-02','JULIoMorgan@gmail.com','+33 4 54 32 65 05',2),
-('AAAAAAAAAAAAA','AAAAAAAAAAA','2030-12-31','JULIoMorgan@gmail.com','+33 4 54 32 65 05',2)
+('rodriguez','damien','2002-01-03','damien@damienrodriguez.fr','+330699887766',1),
+('Morabet','Moumen','2003-01-01','moumen@jsp.fr','+330699887766',1),
+('Youssef','En nour','2099-99-99','yous@sef.en','+330699887766',2),
+('Julio','Morgan','2010-01-02','JULIoMorgan@gmail.com','+330699887766',2),
+('AAAAAAAAAAAAA','AAAAAAAAAAA','2030-12-31','JULIoMorgan@gmail.com','+330699887766',2)

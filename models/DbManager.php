@@ -9,10 +9,17 @@ const PASSWORD = '';
 class DbManager
 {
 
+    /**
+     * Classe de gestion de la base de donnée (?)
+     * principalement utilisé pour la connexion à la base de donnée.
+     */
 
 
     private static ?\PDO $cnx = null;
-
+    /**
+     * Connexion à la base de donnée
+     * @throws Exception levé si une erreur survient lors de la tentative de connexion.
+     */
     public static function connect()
     {
         if (self::$cnx == null) {

@@ -34,10 +34,10 @@ if (file_exists($filename)) {
             echo 'Erreur : ' . $ex->getMessage();
         }
     } else {
-        print_r('mmm erreur 404 un truc dans le genre (l\'action n\'existe pas)');
+        print_r('Y a rien');
     }
 } else {
-    print_r('mmm erreur 404 un truc dans le genre (le controller n\'existe pas)');
+    print_r('Y a rien');
 }
 
 /*au cas où vous vous demanderez pourquoi je ne ferme pas la balise php 
@@ -47,6 +47,4 @@ of the file. This prevents accidental whitespace or new lines being added after 
 closing tag, which may cause unwanted effects because PHP will start output buffering 
 when there is no intention from the programmer to send any output at that point in the 
 script.
-
-et vu que je ne suis pas doué avec les sauts de ligne...
 */
