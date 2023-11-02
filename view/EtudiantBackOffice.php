@@ -29,7 +29,7 @@ foreach ($listeSections as $uneSection) {
                     <h1 class="modal-title fs-5">Fiche étudiant</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="ajouter/">
+                <form method="POST" id="modal-form">
                     <div class="modal-body">
 
                         <div class="row mb-3">
@@ -72,7 +72,7 @@ foreach ($listeSections as $uneSection) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Envoyer" />
+                        <input type="submit" id="form-action" class="btn btn-primary" value="Envoyer" />
                     </div>
                 </form>
             </div>

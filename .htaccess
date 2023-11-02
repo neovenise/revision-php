@@ -10,5 +10,6 @@ RewriteRule ^supprimer/([0-9]+)$ index.php?controller=Etudiant&action=delete&id=
 
 RewriteRule ^ajouter/$ index.php?controller=Etudiant&action=add [nc]
 
-#méthode très (peu) sécurisé pour obtenir les étudiants
 RewriteRule ^infoEtudiant/([0-9]+)/$ index.php?controller=Etudiant&action=getInfoEtudiant&idEtudiant=$1 [nc,qsa]
+
+RewriteRule ^modifier/([0-9]+)/$ index.php?controller=Etudiant&action=editEtudiant&id=$1 [nc,qsa]

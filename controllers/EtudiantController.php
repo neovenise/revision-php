@@ -65,7 +65,7 @@ class EtudiantController extends Controller
             );
             header('Location: /revision-php/');
         } catch (Exception $ex) {
-            echo "Erreur lors de l'ajout de l'étudiant : " + $ex->getMessage();
+            echo "Erreur lors de l'ajout de l'étudiant : {$ex->getMessage()}";
         }
 
     }
@@ -79,5 +79,19 @@ class EtudiantController extends Controller
         }
     }
 
-    //TODO : Edit Student Info
+    public static function editEtudiant($params){
+        try{
+            EtudiantManager::editEtudiant(intval(filter_var($params['id'], FILTER_SANITIZE_NUMBER_INT)),
+                                          htmlspecialchars($params['nom']),
+                                          htmlspecialchars($params['prenom']),
+                                          DateTime::createFromFormat("d/m/Y", $params['datenaissance']),
+                                          filter_var($params['mail'], FILTER_SANITIZE_EMAIL),
+                                          htmlspecialchars($params['tel']),
+                                          intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT)));
+            header('Location: /revision-php/');
+        }
+        catch(Exception $ex){
+            echo "Erreur lors de la modification de l'étudiant : {$ex->getMessage()}";
+        }
+    }
 }
