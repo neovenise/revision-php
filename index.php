@@ -22,6 +22,12 @@ if (isset($_GET) && !empty($_GET)) {
     $action = DEFAULT_ACTION;
 }
 
+if ($controller == 'Reset'){
+    require_once ROOT.'/models/DbManager.php';
+    DbManager::reset();
+    header('Location: /revision-php/');
+}
+else{
 $controller .= "Controller";
 
 $filename = ROOT . '/controllers/' . $controller . '.php';
@@ -48,3 +54,4 @@ closing tag, which may cause unwanted effects because PHP will start output buff
 when there is no intention from the programmer to send any output at that point in the 
 script.
 */
+}

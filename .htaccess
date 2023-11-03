@@ -13,3 +13,5 @@ RewriteRule ^ajouter/$ index.php?controller=Etudiant&action=add [nc]
 RewriteRule ^infoEtudiant/([0-9]+)/$ index.php?controller=Etudiant&action=getInfoEtudiant&idEtudiant=$1 [nc,qsa]
 
 RewriteRule ^modifier/([0-9]+)/$ index.php?controller=Etudiant&action=editEtudiant&id=$1 [nc,qsa]
+
+RewriteRule ^reset/ index.php?controller=Reset [nc]

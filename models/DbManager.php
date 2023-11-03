@@ -34,4 +34,17 @@ class DbManager
         return self::$cnx;
     }
 
+    /**
+     * Réinitialise la base de donnée à son état d'origine.
+     * Vraiment origine, retour dans le passé carrément.
+     * (Je crois que c'est ça AddFixtures() ?)
+     */
+    public static function reset(){
+        if (self::$cnx == null) {
+            self::$cnx = DbManager::connect();
+        }
+        $query = self::$cnx->prepare(file_get_contents(ROOT.'/script.sql'));
+        $query->execute();
+        
+    }
 }
