@@ -21,7 +21,7 @@ if (isset($_GET) && !empty($_GET)) {
     $controller = DEFAULT_CONTROLLER;
     $action = DEFAULT_ACTION;
 }
-
+//Uniquement pour le développement, à supprimer avant d'envoyer en production
 if ($controller == 'Reset'){
     require_once ROOT.'/models/DbManager.php';
     DbManager::reset();

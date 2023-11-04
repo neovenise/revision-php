@@ -38,6 +38,7 @@ class DbManager
      * Réinitialise la base de donnée à son état d'origine.
      * Vraiment origine, retour dans le passé carrément.
      * (Je crois que c'est ça AddFixtures() ?)
+     * Uniquement pour le développement, à supprimer avant d'envoyer en production
      */
     public static function reset(){
         if (self::$cnx == null) {
@@ -45,6 +46,5 @@ class DbManager
         }
         $query = self::$cnx->prepare(file_get_contents(ROOT.'/script.sql'));
         $query->execute();
-        
     }
 }

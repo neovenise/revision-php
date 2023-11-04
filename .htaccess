@@ -14,4 +14,5 @@ RewriteRule ^infoEtudiant/([0-9]+)/$ index.php?controller=Etudiant&action=getInf
 
 RewriteRule ^modifier/([0-9]+)/$ index.php?controller=Etudiant&action=editEtudiant&id=$1 [nc,qsa]
 
+#Uniquement pour le développement, à supprimer avant d'envoyer en production
 RewriteRule ^reset/ index.php?controller=Reset [nc]
