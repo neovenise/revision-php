@@ -2,14 +2,17 @@
 define('ROOT', __DIR__);
 define('DEFAULT_CONTROLLER', 'Etudiant');
 define('DEFAULT_ACTION', 'ListeEtudiants');
-
+if(!empty(file_get_contents("php://input"))){
+$data = json_decode(file_get_contents("php://input"));
+}
 $params = array();
-if (isset($_POST) && !empty($_POST)) {
-    extract($_POST);
-    foreach ($_POST as $key => $value) {
+
+if(isset($data) && !empty($data)){
+    foreach ($data as $key => $value) {
         $params[$key] = $value;
     }
 }
+
 if (isset($_GET) && !empty($_GET)) {
     extract($_GET);
     foreach ($_GET as $key => $value) {

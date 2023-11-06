@@ -55,17 +55,23 @@
         public static function add($params)
         {
             try {
-                EtudiantManager::AjouterUnEtudiant(
-                    htmlspecialchars($params['nom']),
-                    htmlspecialchars($params['prenom']),
-                    Datetime::createFromFormat("d/m/Y", $params['datenaissance']),
-                    filter_var($params['mail'], FILTER_SANITIZE_EMAIL),
-                    htmlspecialchars($params['tel']),
-                    intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT))
-                );
-                header('Location: /revision-php/');
+                $requiredKeys = ['id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
+                foreach ($requiredKeys as $key) {
+                    if (!array_key_exists($key, $params)) {
+                        throw new Exception("La clé de tableau '$key' est obligatoire.");
+                    }
+                }
+                $params['nom'] = htmlspecialchars($params['nom']);
+                $params['prenom'] = htmlspecialchars($params['prenom']);
+                $params['datenaissance'] = DateTime::createFromFormat("d/m/Y", $params['datenaissance']);
+                $params['mail'] = filter_var($params['mail'], FILTER_SANITIZE_EMAIL);
+                $params['tel'] = htmlspecialchars($params['tel']);
+                $params['idSection'] = intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT));
+                EtudiantManager::AjouterUnEtudiant($params['nom'],$params['prenom'],$params['datenaissance'],$params['mail'],$params['tel'],$params['idSection']);
+                http_response_code(200);
             } catch (Exception $ex) {
-                echo "Erreur lors de l'ajout de l'étudiant : {$ex->getMessage()}";
+                echo $ex->getMessage();
+                http_response_code(500);
             }
 
         }
@@ -80,18 +86,31 @@
         }
 
         public static function editEtudiant($params){
-            try{
-                EtudiantManager::editEtudiant(intval(filter_var($params['id'], FILTER_SANITIZE_NUMBER_INT)),
-                                            htmlspecialchars($params['nom']),
-                                            htmlspecialchars($params['prenom']),
-                                            DateTime::createFromFormat("d/m/Y", $params['datenaissance']),
-                                            filter_var($params['mail'], FILTER_SANITIZE_EMAIL),
-                                            htmlspecialchars($params['tel']),
-                                            intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT)));
-                header('Location: /revision-php/');
-            }
-            catch(Exception $ex){
-                echo "Erreur lors de la modification de l'étudiant : {$ex->getMessage()}";
+        try {
+        var_dump($params);
+        // Vérifier si toutes les clés de tableau obligatoires existent
+        $requiredKeys = ['id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
+        foreach ($requiredKeys as $key) {
+            if (!array_key_exists($key, $params)) {
+                throw new Exception("La clé de tableau '$key' est obligatoire.");
             }
         }
+        $params['id'] = intval(filter_var($params['id'], FILTER_SANITIZE_NUMBER_INT));
+        $params['nom'] = htmlspecialchars($params['nom']);
+        $params['prenom'] = htmlspecialchars($params['prenom']);
+        $params['datenaissance'] = DateTime::createFromFormat("d/m/Y", $params['datenaissance']);
+        $params['mail'] = filter_var($params['mail'], FILTER_SANITIZE_EMAIL);
+        $params['tel'] = htmlspecialchars($params['tel']);
+        $params['idSection'] = intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT));
+        EtudiantManager::editEtudiant($params['id'],$params['nom'],$params['prenom'],$params['datenaissance'],$params['mail'],$params['tel'],$params['idSection']);
+        http_response_code(200);
+        exit();
+        }
+        catch (Exception $ex) {
+        // Envoyer une réponse HTTP 500 Internal Server Error
+        echo $ex->getMessage();
+        http_response_code(500);
+        exit();
+        }
     }
+}

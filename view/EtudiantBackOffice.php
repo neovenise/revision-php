@@ -22,14 +22,14 @@ foreach ($listeSections as $uneSection) {
 
 <body>
 
-    <div class="modal fade" id="modalEtudiant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEtudiant" tabindex="-1" aria-labelledby="modalEtudiant" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Fiche étudiant</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" id="modal-form" novalidate>
+                <form id="modal-form" novalidate>
                     <div class="modal-body">
                         <div class="row mb-3">
                             <label for="nom" class="col-sm-4 col-form-label">Nom</label>
@@ -117,7 +117,7 @@ foreach ($listeSections as $uneSection) {
                 <th>Email</th>
                 <th>Action</th>
             </thead>
-            <tbody>
+            <tbody id="table-student">
                 <?php
                 $etudiantHtml = '';
 
