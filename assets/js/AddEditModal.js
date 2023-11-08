@@ -47,7 +47,7 @@ formElement.addEventListener('submit', async (event) => {
             //après analyse ça sert à rien de tout mettre dans des variables
             let nom = document.getElementById("modal-nom").value;
             let prenom = document.getElementById("modal-prenom").value;
-            let datanaissance = document.getElementById("modal-datenaissance").value;
+            let datenaissance = document.getElementById("modal-datenaissance").value;
             let email = document.getElementById("modal-mail").value;
             let telmobile = document.getElementById("modal-tel").value;
             let idSection = document.getElementById("modal-section").value;
@@ -55,7 +55,7 @@ formElement.addEventListener('submit', async (event) => {
             "id": studentId,
             "nom" : nom,
             "prenom" : prenom,
-            "datenaissance" : datanaissance,
+            "datenaissance" : datenaissance,
             "mail" : email,
             "tel" : telmobile,
             "idSection" : idSection};
@@ -76,14 +76,13 @@ formElement.addEventListener('submit', async (event) => {
                     if(child.getAttribute("data-student-id") == studentId){
                         child.children[0].textContent = nom;
                         child.children[1].textContent = prenom;
-                        child.children[2].textContent = datanaissance;
+                        child.children[2].textContent = datenaissance;
                         child.children[3].textContent = email;
                     }
                 }
                 
                 bsModal.hide();
             }
-
         }
         else{
             let nom = document.getElementById("modal-nom").value;
@@ -108,45 +107,15 @@ formElement.addEventListener('submit', async (event) => {
                     body:JSON.stringify(studentEdit)
                 });
             
-            if(response.ok){
-                console.log(sectionFilter.options[sectionFilter.selectedIndex].value);
-                if(sectionFilter.options[sectionFilter.selectedIndex].value == 'all' || sectionFilter.options[sectionFilter.selectedIndex].value == idSection){
-                    let studentId = response.json()['id'];
-                    let table = document.getElementById("table-student");
-                    //Cette partie n'est d'aucune utilité autre que d'éviter de simplement faire "innerHTML", qui serait 100x plus simple.
-                    //J'aime me compliquer la vie, merci pour votre compréhension...
-                    let row = document.createElement("tr");
-                    row.setAttribute("data-student-id",studentId);
-                    for(let i = 0;i < 4;i++){
-                        row.appendChild(document.createElement("td"));
-                    }
-                    row.children[0].textContent = nom;
-                    row.children[1].textContent = prenom;
-                    row.children[2].textContent = datenaissance;
-                    row.children[3].textContent = email;
-                    let buttonContainer = document.createElement("td");
-                    buttonContainer.classList.add("d-flex","gap-2","justify-content-center");
-                    let editButton = document.createElement("button");
-                    editButton.classList.add("btn","btn-warning","edit");
-                    editButton.setAttribute("data-bs-toggle","modal");
-                    editButton.setAttribute("data-bs-target","#modalEtudiant");
-                    editButton.textContent = "Modifier";
-                    let editIcon = document.createElement("i");
-                    editIcon.classList.add("bi","bi-pencil-square");
-                    editButton.appendChild(editIcon);
-                    buttonContainer.appendChild(editButton);
-                    let deleteButton = document.createElement("button");
-                    deleteButton.classList.add("btn","btn-danger");
-                    deleteButton.textContent = "Supprimer"
-                    let deleteIcon = document.createElement("i");
-                    deleteIcon.classList.add("bi","bi-trash-fill");
-                    deleteButton.appendChild(deleteIcon);
-                    buttonContainer.appendChild(deleteButton);
-                    row.appendChild(buttonContainer);
-                    table.appendChild(row);
-                    bsModal.hide();
+            if (response.ok) {
+                if (sectionFilter.options[sectionFilter.selectedIndex].value == 'all' || sectionFilter.options[sectionFilter.selectedIndex].value == idSection) {
+                    const jsonResponse = await response.json();
+                    addedStudentID = jsonResponse.id;
+                    //Utilisation de la fonction "addRow" présente dans le fichier assets/js/studentFilter.js, il y a sans doute de meilleur pratique pour l'appeler
+                    addRow(addedStudentID, nom, prenom, datenaissance, email);
                 }
+            bsModal.hide();
             }
         }
-
-    })
+    });
+        

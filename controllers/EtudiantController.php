@@ -40,14 +40,18 @@
         public static function delete($params)
         {
             try {
-                if (ctype_digit($params['id']))
+                if (ctype_digit($params['id'])){
                     EtudiantManager::SupprimerUnEtudiant(intval($params['id'], 10));
-                else
+                    http_response_code(200);
+                    exit();
+                }
+                else{
                     throw new UnexpectedValueException('La valeur passé n\'est pas un id.');
-            } catch (Exception $ex) {
+                }
+            } catch (Exception $ex)
+            {
                 echo "Erreur : " + $ex->getMessage();
-            } finally {
-                header('Location: /revision-php/');
+                http_response_code(500);
                 exit();
             }
         }
