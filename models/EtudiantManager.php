@@ -102,7 +102,7 @@ class EtudiantManager
      * @param int $idSection L'ID de la section à laquelle l'étudiant est associé.
      * @throws Exception Si une erreur se produit lors de l'ajout.
      */
-    public static function AjouterUnEtudiant(string $nom, string $prenom, DateTime $date, string $mail, string $tel, int $idSection)
+    public static function AjouterUnEtudiant(string $nom, string $prenom, DateTime $date, string $mail, string $tel, int $idSection):int
     {
         if (self::$cnx == null) {
             self::$cnx = DbManager::connect();
@@ -120,6 +120,11 @@ class EtudiantManager
         if(!$result->execute()){
             throw new Exception('La requête n\'a pas été effectué.');
         }
+        $req2 = 'select LAST_INSERT_ID() as id';
+        $result = self::$cnx->prepare($req2);
+        $result->execute();
+        $idEtudiant = $result->fetch()['id'];
+        return $idEtudiant;
     }
 
     /**

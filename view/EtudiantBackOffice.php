@@ -99,7 +99,7 @@ foreach ($listeSections as $uneSection) {
 
         <p class="my-0">Filtre :</p>
         <form method="get" class="mb-4 d-flex gap-2">
-            <select class="form-select w-50" name="section">
+            <select class="form-select w-50" name="section" id="section-filter">
                 <option value="all">Tous</option>
                 <?php
                 echo $sectionHtml;

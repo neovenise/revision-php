@@ -55,7 +55,8 @@
         public static function add($params)
         {
             try {
-                $requiredKeys = ['id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
+                // Vérifie si toutes les clés de tableau obligatoires existent
+                $requiredKeys = ['nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
                 foreach ($requiredKeys as $key) {
                     if (!array_key_exists($key, $params)) {
                         throw new Exception("La clé de tableau '$key' est obligatoire.");
@@ -67,11 +68,15 @@
                 $params['mail'] = filter_var($params['mail'], FILTER_SANITIZE_EMAIL);
                 $params['tel'] = htmlspecialchars($params['tel']);
                 $params['idSection'] = intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT));
-                EtudiantManager::AjouterUnEtudiant($params['nom'],$params['prenom'],$params['datenaissance'],$params['mail'],$params['tel'],$params['idSection']);
+                $idStudent = EtudiantManager::AjouterUnEtudiant($params['nom'],$params['prenom'],$params['datenaissance'],$params['mail'],$params['tel'],$params['idSection']);
+                print(json_encode(array("id"=>$idStudent)));
                 http_response_code(200);
+                exit();
+                
             } catch (Exception $ex) {
                 echo $ex->getMessage();
                 http_response_code(500);
+                exit();
             }
 
         }
@@ -87,8 +92,6 @@
 
         public static function editEtudiant($params){
         try {
-        var_dump($params);
-        // Vérifier si toutes les clés de tableau obligatoires existent
         $requiredKeys = ['id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
         foreach ($requiredKeys as $key) {
             if (!array_key_exists($key, $params)) {

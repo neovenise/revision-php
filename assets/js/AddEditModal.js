@@ -3,6 +3,7 @@ const bsModal = new bootstrap.Modal(modal);
 const validButton = document.getElementById("form-action");
 const formInputs = document.getElementsByClassName("form-control");
 const formElement = document.getElementById("modal-form");
+const sectionFilter = document.getElementById("section-filter");
 let isEditing = false;
 let studentId = 0;
 
@@ -37,13 +38,12 @@ modal.addEventListener('show.bs.modal',async (event) =>{
     }
 })
 formElement.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         if (!formElement.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
             formElement.classList.add('was-validated');
         }
         else if(studentId > 0){
-            event.preventDefault();
             //après analyse ça sert à rien de tout mettre dans des variables
             let nom = document.getElementById("modal-nom").value;
             let prenom = document.getElementById("modal-prenom").value;
@@ -85,4 +85,68 @@ formElement.addEventListener('submit', async (event) => {
             }
 
         }
+        else{
+            let nom = document.getElementById("modal-nom").value;
+            let prenom = document.getElementById("modal-prenom").value;
+            let datenaissance = document.getElementById("modal-datenaissance").value;
+            let email = document.getElementById("modal-mail").value;
+            let telmobile = document.getElementById("modal-tel").value;
+            let idSection = document.getElementById("modal-section").value;
+            const studentEdit =  {
+                "nom" : nom,
+                "prenom" : prenom,
+                "datenaissance" : datenaissance,
+                "mail" : email,
+                "tel" : telmobile,
+                "idSection" : idSection};
+                let response = await fetch("http://localhost/revision-php/ajouter/",{
+                    method: "POST",
+                    headers:{
+                        "Content-Type": "application/json"
+                    },
+                    redirect:"follow", //?
+                    body:JSON.stringify(studentEdit)
+                });
+            
+            if(response.ok){
+                console.log(sectionFilter.options[sectionFilter.selectedIndex].value);
+                if(sectionFilter.options[sectionFilter.selectedIndex].value == 'all' || sectionFilter.options[sectionFilter.selectedIndex].value == idSection){
+                    let studentId = response.json()['id'];
+                    let table = document.getElementById("table-student");
+                    //Cette partie n'est d'aucune utilité autre que d'éviter de simplement faire "innerHTML", qui serait 100x plus simple.
+                    //J'aime me compliquer la vie, merci pour votre compréhension...
+                    let row = document.createElement("tr");
+                    row.setAttribute("data-student-id",studentId);
+                    for(let i = 0;i < 4;i++){
+                        row.appendChild(document.createElement("td"));
+                    }
+                    row.children[0].textContent = nom;
+                    row.children[1].textContent = prenom;
+                    row.children[2].textContent = datenaissance;
+                    row.children[3].textContent = email;
+                    let buttonContainer = document.createElement("td");
+                    buttonContainer.classList.add("d-flex","gap-2","justify-content-center");
+                    let editButton = document.createElement("button");
+                    editButton.classList.add("btn","btn-warning","edit");
+                    editButton.setAttribute("data-bs-toggle","modal");
+                    editButton.setAttribute("data-bs-target","#modalEtudiant");
+                    editButton.textContent = "Modifier";
+                    let editIcon = document.createElement("i");
+                    editIcon.classList.add("bi","bi-pencil-square");
+                    editButton.appendChild(editIcon);
+                    buttonContainer.appendChild(editButton);
+                    let deleteButton = document.createElement("button");
+                    deleteButton.classList.add("btn","btn-danger");
+                    deleteButton.textContent = "Supprimer"
+                    let deleteIcon = document.createElement("i");
+                    deleteIcon.classList.add("bi","bi-trash-fill");
+                    deleteButton.appendChild(deleteIcon);
+                    buttonContainer.appendChild(deleteButton);
+                    row.appendChild(buttonContainer);
+                    table.appendChild(row);
+                    bsModal.hide();
+                }
+            }
+        }
+
     })
