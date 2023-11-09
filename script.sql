@@ -33,4 +33,4 @@ INSERT INTO `ETUDIANT`(`nom`,`prenom`,`datenaissance`,`email`,`telmobile`,`idSec
 ('Morabet','Moumen','2003-01-01','moumen@jsp.fr','+330699887766',1),
 ('Youssef','En nour','2099-01-01','yous@sef.en','+330699887766',2),
 ('Julio','Morgan','2010-01-02','JULIoMorgan@gmail.com','+330699887766',2),
-('AAAAAAAAAAAAA','AAAAAAAAAAA','2030-12-31','JULIoMorgan@gmail.com','+330699887766',2)
+('AAAAAAAAAAAAA','AAAAAAAAAAA','2030-12-31','AAAAAAAA@gmail.com','+330699887766',3)

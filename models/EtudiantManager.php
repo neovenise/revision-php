@@ -138,7 +138,7 @@ class EtudiantManager
         if (self::$cnx == null) {
             self::$cnx = DbManager::connect();
         }
-        $req = 'select idEtudiant, nom, prenom , DATE_FORMAT(datenaissance, "%d/%m/%Y") AS datenaissance, email, telmobile, idSection ';
+        $req = 'select idEtudiant, nom, prenom, datenaissance, email, telmobile, idSection ';
         $req .= 'from etudiant ';
         $req .= 'WHERE idEtudiant = :id';
         $result = self::$cnx->prepare($req);

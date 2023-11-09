@@ -7,6 +7,12 @@ const sectionFilter = document.getElementById("section-filter");
 let isEditing = false;
 let studentId = 0;
 
+/**
+ * Gère l'événement de présentation de la fenêtre modale, pré-remplissant les champs si la modification d'un étudiant est demandée.
+ *
+ * @param {Event} event - L'événement déclenché lors de l'ouverture de la fenêtre modale.
+ * @async
+ */
 modal.addEventListener('show.bs.modal',async (event) =>{
     let caller = event.relatedTarget;
     formElement.classList.remove("was-validated");
@@ -37,6 +43,13 @@ modal.addEventListener('show.bs.modal',async (event) =>{
         }
     }
 })
+
+/**
+ * Gère l'événement de soumission du formulaire de la fenêtre modale, effectuant la modification ou l'ajout d'un étudiant.
+ *
+ * @param {Event} event - L'événement de soumission du formulaire.
+ * @async
+ */
 formElement.addEventListener('submit', async (event) => {
         event.preventDefault();
         event.stopPropagation();

@@ -52,7 +52,7 @@ foreach ($listeSections as $uneSection) {
                         <div class="row mb-3">
                             <label for="datenaissance" class="col-sm-4 col-form-label">Date de naissance</label>
                             <div class="col-sm-8">
-                                <input type="text" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" pattern="\d{2}/\d{2}/\d{4}" required/> <!-- Il y a d'autres manières de vérifier que par des expressions régulières, mais restons dans la simplicité. -->
+                                <input type="date" name="datenaissance" id="modal-datenaissance" class="form-control" placeholder="JJ/MM/AAAA" pattern="\d{2}/\d{2}/\d{4}" required/> <!-- Il y a d'autres manières de vérifier que par des expressions régulières, mais restons dans la simplicité. -->
                                 <div class="invalid-feedback">
                                 Veuillez saisir une date de naissance valide. (JJ/MM/AAAA)
                                 </div>
@@ -98,16 +98,12 @@ foreach ($listeSections as $uneSection) {
         <h1>Liste des étudiants</h1>
 
         <p class="my-0">Filtre :</p>
-        <form method="get" class="mb-4 d-flex gap-2">
-            <select class="form-select w-50" name="section" id="section-filter">
-                <option value="all">Tous</option>
-                <?php
-                echo $sectionHtml;
-                ?>
-
-            </select>
-            <input type="submit" class="btn btn-primary" value="Filtrer"></input>
-        </form>
+        <select class="form-select w-50 my-2" name="section" id="section-filter">
+            <option value="all">Tous</option>
+            <?php
+            echo $sectionHtml;
+            ?>
+        </select>
 
         <table class="table table-bordered table-striped">
             <thead class="table-primary">
@@ -133,6 +129,18 @@ foreach ($listeSections as $uneSection) {
                 echo $etudiantHtml;
                 ?>
             </tbody>
+            <!-- uniquement pour l'animation de chargement, pas nécessaire et il y a peut-être de meilleur alternative-->
+            <tfoot class="d-none" id="loading">
+                <tr>
+                    <td  colspan="5">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border m-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
         <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalEtudiant">
             <i class="bi bi-plus"></i> Ajouter

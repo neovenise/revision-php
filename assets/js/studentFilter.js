@@ -1,19 +1,35 @@
-// TODO: Finir le filtrage d'étudiant par section
-/*
+let table = document.getElementById("table-student");
+
+/***
+ * Ecouteur de l'évènement "change", qui écoute si un changement d'option sélectionné à lieu dans la balise "<select>" du javascript.
+ */
 document.getElementById("section-filter").addEventListener("change",async (event) => {
+        while(table.firstChild){
+            table.removeChild(table.lastChild);
+        }
+        let loadingAnimation = document.getElementById("loading");
+        loadingAnimation.classList.remove("d-none");
         let selectForm = event.currentTarget;
         let currentSelected = selectForm.options[selectForm.selectedIndex].value;
-        if (currentSelected = "all"){
+        //Le fetch a été utilisé différement pour des questions d'expérience.
+        let filteredStudents = await fetch("/revision-php/getEtudiantParSection/" + currentSelected + "/").then(response => response.json());
+        filteredStudents.forEach(student => addRow(student.id,student.nom,student.prenom,student.datenaissance,student.email));
+        loadingAnimation.classList.add("d-none");
         
-        }
 })
-*/
 
-
+/**
+ * Ajoute une nouvelle ligne (étudiant) au tableau HTML avec les informations fournies.
+ *
+ * @param {string} id - L'identifiant de l'étudiant.
+ * @param {string} nom - Le nom de l'étudiant.
+ * @param {string} prenom - Le prénom de l'étudiant.
+ * @param {string} datenaissance - La date de naissance de l'étudiant au format texte.
+ * @param {string} email - L'adresse e-mail de l'étudiant.
+ */
 function addRow(id,nom,prenom,datenaissance,email){
     //Cette partie n'est d'aucune utilité autre que d'éviter de simplement faire "innerHTML", qui serait 100x plus simple.
     //J'aime me compliquer la vie, merci pour votre compréhension...
-    let table = document.getElementById("table-student");
     let row = document.createElement("tr");
     row.setAttribute("data-student-id",id);
     for(let i = 0;i < 4;i++){

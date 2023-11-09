@@ -4,6 +4,12 @@
     require_once('./models/SectionManager.php');
     class EtudiantController extends Controller
     {
+        /**
+        * Affiche la liste des étudiants avec la possibilité de filtrer par section.
+        *
+        * @param array $params Les paramètres de la requête, 'section' en option pour filtrer par section.
+        * @return void
+        */
         public static function ListeEtudiants($params)
         {
             $listeSections = SectionManager::GetLesSections();
@@ -36,7 +42,13 @@
             self::render($view, $params);
         }
 
-        // TODO : Test method "delete()"
+        /**
+        * Supprime un étudiant en fonction de son identifiant.
+        *
+        * @param array $params Les paramètres de la requête, avec 'id' comme clé obligatoire.
+        * @return void
+        * @throws UnexpectedValueException Si la valeur de 'id' n'est pas un entier.
+        */
         public static function delete($params)
         {
             try {
@@ -56,6 +68,13 @@
             }
         }
 
+        /**
+        * Ajoute un nouvel étudiant en fonction des paramètres fournis.
+        *
+        * @param array $params Les paramètres de la requête, avec les clés obligatoires 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'.
+        * @return void
+        * @throws Exception Si une des clés obligatoires est manquante ou en cas d'autres erreurs lors de l'ajout de l'étudiant.
+        */
         public static function add($params)
         {
             try {
@@ -68,7 +87,7 @@
                 }
                 $params['nom'] = htmlspecialchars($params['nom']);
                 $params['prenom'] = htmlspecialchars($params['prenom']);
-                $params['datenaissance'] = DateTime::createFromFormat("d/m/Y", $params['datenaissance']);
+                $params['datenaissance'] = DateTime::createFromFormat("Y-m-d", $params['datenaissance']);
                 $params['mail'] = filter_var($params['mail'], FILTER_SANITIZE_EMAIL);
                 $params['tel'] = htmlspecialchars($params['tel']);
                 $params['idSection'] = intval(filter_var($params['idSection'], FILTER_SANITIZE_NUMBER_INT));
@@ -82,9 +101,14 @@
                 http_response_code(500);
                 exit();
             }
-
         }
 
+        /**
+        * Obtient les informations d'un étudiant et les renvoie au format JSON.
+        *
+        * @param array $params Les paramètres de la requête, avec 'idEtudiant' comme clé obligatoire.
+        * @throws Exception En cas d'erreur lors de l'obtention des informations de l'étudiant.
+        */
         public static function getInfoEtudiant($params){
             try{
                 $infoEtudiant = EtudiantManager::getInfoEtudiant($params['idEtudiant']);
@@ -94,6 +118,12 @@
             }
         }
 
+        /**
+        * Modifie les informations d'un étudiant en fonction des paramètres fournis.
+        *
+        * @param array $params Les paramètres de la requête, avec les clés obligatoires 'id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'.
+        * @throws Exception En cas d'erreur lors de la modification de l'étudiant.
+        */
         public static function editEtudiant($params){
         try {
         $requiredKeys = ['id', 'nom', 'prenom', 'datenaissance', 'mail', 'tel', 'idSection'];
@@ -114,10 +144,50 @@
         exit();
         }
         catch (Exception $ex) {
-        // Envoyer une réponse HTTP 500 Internal Server Error
+        // Envoie une réponse HTTP 500 Internal Server Error
         echo $ex->getMessage();
         http_response_code(500);
         exit();
+        }
+    }
+
+     /**
+     * Obtient la liste des étudiants d'une section et renvoie les données au format JSON.
+     *
+     * @param array $params Les paramètres de la requête, avec 'section' comme clé facultative. Si non fourni ou égal à 'all', toutes les sections seront incluses.
+     * @throws Exception En cas d'erreur lors de l'obtention des étudiants par section.
+     */
+    public static function getEtudiantParSectionJSON($params){
+        $lesEtudiants = array();
+        try{
+            /*if (!array_key_exists('section',$params)){
+                throw new Exception("Aucune id de section n'a été précisée.");
+            }*/
+            if($params['section'] != 'all'){
+                $params['section'] = intval(filter_var($params['section'], FILTER_SANITIZE_NUMBER_INT));
+                $lesEtudiants = EtudiantManager::GetLesEtudiantsParSection(SectionManager::getSectionParId($params['section']));
+            }
+            else{
+                $lesEtudiants = EtudiantManager::GetLesEtudiants();
+            }
+            $etudiantsFiltre = array();
+            foreach($lesEtudiants as $etudiant){
+                $etudiantsFiltre[] = array(
+                    'id' => $etudiant->GetID(),
+                    'nom' => $etudiant->GetNom(),
+                    'prenom' => $etudiant->GetPrenom(),
+                    'datenaissance' => $etudiant->GetDateNaissance()->format('d/m/Y'),
+                    'email' => $etudiant->GetMail()
+                );
+            }
+            print(json_encode($etudiantsFiltre));
+            http_response_code(200);
+            exit();
+        }
+        catch(Exception $ex){
+            echo $ex->getMessage();
+            http_response_code(500);
+            exit();
         }
     }
 }

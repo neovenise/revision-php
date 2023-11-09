@@ -12,7 +12,10 @@ RewriteRule ^ajouter/$ index.php?controller=Etudiant&action=add [nc]
 
 RewriteRule ^infoEtudiant/([0-9]+)/$ index.php?controller=Etudiant&action=getInfoEtudiant&idEtudiant=$1 [nc,qsa]
 
-RewriteRule ^modifier/$ index.php?controller=Etudiant&action=editEtudiant [nc,qsa]
+RewriteRule ^modifier/$ index.php?controller=Etudiant&action=editEtudiant [nc]
+
+RewriteRule ^getEtudiantParSection/([0-9]+)/$ index.php?controller=Etudiant&action=getEtudiantParSectionJSON&section=$1 [nc,qsa]
+RewriteRule ^getEtudiantParSection/all/$ index.php?controller=Etudiant&action=getEtudiantParSectionJSON&section=all [nc,qsa]
 
 #Uniquement pour le développement, à supprimer avant d'envoyer en production
 RewriteRule ^reset/$ index.php?controller=Reset [nc]
